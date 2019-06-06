@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const user = require('./routes/user');
 const login = require('./routes/login');
+const account = require('./routes/createAccount');
 const mongoose = require('mongoose');
 const config = require('config');
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use('/api/users', user);
 app.use('/api/logins', login);
+app.use('/api/accounts',account);
 
 
 

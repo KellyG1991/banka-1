@@ -29,4 +29,40 @@ router.post('/', async function(req,res){
     
 });
 
+// Get users
+router.get('/',async function(req,res){
+    const user = await User.find()
+        .sort('username');
+    res.send(user);
+});
+router.get('/:_id', async function(req,res){
+    const user = await User.findById(req.params._id);
+    if(!user){
+        res.status(400).send('User not found. Invalid ID');
+    }
+    res.send(_.pick(user,['username','email']));
+});
+
+// Update User
+router.put('/:_id', async function(req,res){
+    const user = await User.findByIdAndUpdate(req.params._id, _.pick(req.body,['username','email','password']));
+    if(!user){
+        res.status(400).send('User not found. Invalid ID');
+    }
+    await user.save();
+
+    res.send(user);
+});
+
+// Delete User
+router.delete('/:_id', async function(req,res){
+    const user = await User.findByIdAndDelete(req.params._id);
+    if(!user){
+        res.status(400).send('Cannot delete user. Does Not exist');
+    }
+    //await user.save();
+
+    res.send('Successfully Deleted User');
+})
+
 module.exports = router;

@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const user = require('./routes/user');
-const login = require('./routes/login')
+const login = require('./routes/login');
 const mongoose = require('mongoose');
 const config = require('config');
+
 
 
 if(!config.get('jwtPrivateKey')){

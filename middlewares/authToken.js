@@ -3,7 +3,7 @@ const config = require('config');
 
 
 module.exports = async function(req,res,next){
-    const token = 'x-auth-token';
+    const token = req.header('x-auth-token');
     if(!token){
         res.status(401).send('Not Authorized. Authorization token not provided');
     }

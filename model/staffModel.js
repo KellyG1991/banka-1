@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 // admin schema
-const adminSchema = new mongoose.Schema({
+const staffSchema = new mongoose.Schema({
     username: {
         type: String,
         minlength: 8,
@@ -22,21 +22,26 @@ const adminSchema = new mongoose.Schema({
         maxlength: 100,
         required: true
     },
-    isAdmin: Boolean
+    position: {
+        type: String,
+        required: true
+    },
+    isStaff: Boolean
 });
 
-const Admin = mongoose.model('Admin',adminSchema);
+const Staff = mongoose.model('Staff',staffSchema);
 
 // User joi validator
-function adminValidator(admin){
+function staffValidator(staff){
     const schema = {
         username: Joi.string().min(8).max(100).required(),
         email: Joi.string().min(10).max(255).required().email(),
         password: Joi.string().min(8).max(100).required(),
-        isAdmin: Joi.boolean()
+        position: Joi.string().required(),
+        isStaff: Joi.boolean()
     }
-    return Joi.validate(admin,schema);
+    return Joi.validate(staff,schema);
 }
 
-exports.Admin = Admin;
-exports.validate = adminValidator;
+exports.Staff = Staff;
+exports.validate = staffValidator;

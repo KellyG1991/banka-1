@@ -1,3 +1,6 @@
 {
-    "jwtPrivateKey": "Banka_jwtPrivateKey"
+    "jwtPrivateKey": "Banka_jwtPrivateKey",
+    "jwtAccountKey": "Banka_jwtAccountKey",
+    "jwtAdminKey": "Banka_jwtAdminKey",
+    "jwtStaffKey": "Banka_jwtStaffKey"
 }

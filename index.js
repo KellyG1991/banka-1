@@ -1,15 +1,17 @@
 const express = require('express');
 const app = express();
+const admin = require('./routes/admin');
 const user = require('./routes/user');
 const login = require('./routes/login');
 const account = require('./routes/createAccount');
+const deposit = require('./routes/deposit');
 const mongoose = require('mongoose');
 const config = require('config');
 
 
 
-if(!config.get('jwtPrivateKey')){
-    console.error('Error: Please Enter a jwtPrivateKey');
+if(!config.get('jwtPrivateKey') || !config.get('jwtAccountKey') || !config.get('jwtAdminKey') || !config.get('jwtStaffKey')){
+    console.error('Error: Please Enter All Necessary Keys');
     process.exit(1);
 }
 
@@ -22,10 +24,11 @@ mongoose.set('useFindAndModify',false);
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use('/api/admins', admin);
 app.use('/api/users', user);
 app.use('/api/logins', login);
 app.use('/api/accounts',account);
-
+app.use('/api/deposits', deposit);
 
 
 

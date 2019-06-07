@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User, validate } = require('../model/userModel');
+const admin = require('../middlewares/admin');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 
@@ -30,7 +31,7 @@ router.post('/', async function(req,res){
 });
 
 // Get users
-router.get('/',async function(req,res){
+router.get('/',admin, async function(req,res){
     const user = await User.find()
         .sort('username');
     res.send(user);
@@ -55,7 +56,7 @@ router.put('/:_id', async function(req,res){
 });
 
 // Delete User
-router.delete('/:_id', async function(req,res){
+router.delete('/:_id', admin, async function(req,res){
     const user = await User.findByIdAndDelete(req.params._id);
     if(!user){
         res.status(400).send('Cannot delete user. Does Not exist');

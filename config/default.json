@@ -1,6 +1,15 @@
 {
-    "jwtPrivateKey": "",
-    "jwtAccountKey": "",
-    "jwtAdminKey": "",
-    "jwtStaffKey": ""
-}
+    "jwtKey": "jwtKey",
+    "jwtOptions": {
+      "expiresIn": "1h",
+      "audience": [
+        "*"
+      ],
+      "maxAge": "2 weeks"
+    },
+    "joiOptions": {
+      "abortEarly": false,
+      "allowUnknown": true,
+      "stripUnknown": true
+    }
+  }

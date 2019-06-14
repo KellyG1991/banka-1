@@ -21,6 +21,10 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "mongoose": "^5.5.12",
-    "node-loggly-bulk": "^2.2.4"
+    "mongoose-hidden": "^1.6.1",
+    "node-loggly-bulk": "^2.2.4",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0"
   }
 }

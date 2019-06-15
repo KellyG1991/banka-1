@@ -1,3 +1,6 @@
 {
-    "jwtKey": "banka_JWT"   
+    "jwtKey": "banka_JWT",
+    "jwtAdmin": "banka_Admin",
+    "jwtStaff": "banka_Staff",
+    "jwtClient": "banka_client"   
 }

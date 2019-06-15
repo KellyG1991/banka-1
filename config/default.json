@@ -1,5 +1,8 @@
 {
-    "jwtKey": "jwtKey",
+    "jwtKey": "",
+    "jwtAdmin": "",
+    "jwtStaff": "",
+    "jwtClient": "",
     "jwtOptions": {
       "expiresIn": "1h",
       "audience": [
@@ -12,4 +15,4 @@
       "allowUnknown": true,
       "stripUnknown": true
     }
-  }
+}

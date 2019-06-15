@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const config = require('config');
-const user = require('./routes/user');
+const admin = require('./routes/adminRt');
+const _ = require('lodash');
 
-
-if(!config.get('jwtKey')){
-    console.log('Error Please enter jwtKey');
+if(!(_.pick(config.get,['jwtKey','jwtAdmin','jwtStaff','jwtClient']))){
+    console.log('\x1b[31m%s\x1b[0m', 'Error: Please Enter all keys');
     process.exit(1);
 }
+
+
 
 mongoose.connect('mongodb://localhost/banka_DB', {useNewUrlParser: true})
     .then(() => console.log('\x1b[34m%s\x1b[0m','MongoDB is connected....'))
@@ -18,7 +20,8 @@ mongoose.set('useFindAndModify',false);
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use('/api/users', user);
+app.use('/api/a/admin', admin);
+
 
 
 const port = process.env.PORT || 1991

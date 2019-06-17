@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const config = require('config');
 const admin = require('./routes/adminRt');
+const client = require('./routes/clientRt');
 const _ = require('lodash');
 
 if(!(_.pick(config.get,['jwtKey','jwtAdmin','jwtStaff','jwtClient']))){
@@ -21,6 +22,7 @@ mongoose.set('useFindAndModify',false);
 app.use(express.json());
 app.use(express.urlencoded());
 app.use('/api/a/admin', admin);
+app.use('/api/c/signup', client);
 
 
 

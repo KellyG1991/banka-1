@@ -12,7 +12,7 @@ module.exports = class {
                 let admin = await Admin.findOne({ID: req.body.ID});
                 if(admin) return res.status(422).json({message: 'Admin already exists'});
                 
-                admin = new Admin(_.pick(req.body,['ID','email','firstName','lastName','password']));
+                admin = new Admin(_.pick(req.body,['ID','email','firstName','lastName','password','type']));
                 const salt = await bcrypt.genSalt(10);
                 admin.password = await bcrypt.hash(admin.password, salt);
                 await admin.save();

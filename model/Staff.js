@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const mongooseHidden = require('mongoose-hidden')({defaultHidden: {password: true}})
 const config = require('config');
 
 exports.schema = new mongoose.Schema({
@@ -29,9 +28,7 @@ exports.schema = new mongoose.Schema({
     },
     type: {
         type: String,
-        default: 'client',
-        hideJson: true,
-        hideObject: true
+        default: 'Staff'
     }
 },
 {
@@ -39,10 +36,9 @@ exports.schema = new mongoose.Schema({
     , autoCreate: false
 })
 
-exports.schema.plugin(mongooseHidden);
 
 // Staff model
-exports.Staff = mongoose.model('User', exports.schema);
+exports.Staff = mongoose.model('Staff', exports.schema);
 
 // validate Staff registration
 exports.staffRegister = function(req,res,next){

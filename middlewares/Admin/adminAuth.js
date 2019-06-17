@@ -11,6 +11,6 @@ module.exports = function(req,res,next){
         req.admin = decoded;
         next();
     }catch(err){
-        res.json({message: 'Invalid Token'+err});
+        res.json({message: 'Invalid Token'});
     }
 }

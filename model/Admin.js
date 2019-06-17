@@ -26,8 +26,7 @@ exports.schema = new mongoose.Schema({
     },
     type: {
         type: String,
-        hideJson: true,
-        hideObject: true
+        default: 'Admin'
     }
 },
 {
@@ -36,7 +35,7 @@ exports.schema = new mongoose.Schema({
 })
 
 // user model
-exports.Admin = mongoose.model('User', exports.schema);
+exports.Admin = mongoose.model('Admin', exports.schema);
 
 // validate user registration
 exports.adminRegister = function(req,res,next){
@@ -47,7 +46,7 @@ exports.adminRegister = function(req,res,next){
         email: Joi.string().email().required(),
         firstName: Joi.string().trim().required(),
         lastName: Joi.string().trim().required(),
-        password: Joi.string().required()
+        password: Joi.string().required(),
     }
 
     const options = config.get('joiOptions');

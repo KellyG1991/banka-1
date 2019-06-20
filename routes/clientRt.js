@@ -27,7 +27,7 @@ router.post(
 )
 
 router.delete(
-    '/'
+    '/:_id'
     , adminAuth
     , ClientController.deleteClient()
 )
@@ -58,6 +58,8 @@ router.post(
     , accountRegister
     , ClientController.accountCreate()
 )
+
+
 
 
 

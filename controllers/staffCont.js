@@ -25,6 +25,19 @@ module.exports = class {
         }
     }
 
+    // get all accounts
+    static getAccounts() {
+        return async (req,res) => {
+            try{
+                let account = await Account.find();
+                if(!account) return res.status(404).json({message: 'No Accounts found'});
+     
+                res.send(account);
+            }catch(err){res.send(err.message)}
+          
+        }
+    }
+
     
     // get a single account
     static accounts() {
@@ -48,6 +61,8 @@ module.exports = class {
                 
                 // Update only balance
                 account.balance = parseFloat(account.balance) + parseFloat(req.body.balance);
+                account.updatedOn = Date.now();
+
                 await account.save();
 
                 res.send(account);
@@ -66,6 +81,7 @@ module.exports = class {
                 
                 // Update only balance
                 account.balance = parseFloat(account.balance) - parseFloat(req.body.balance);
+                account.updatedOn = Date.now();
                 await account.save();
 
                 res.send(account);
@@ -73,5 +89,17 @@ module.exports = class {
             }catch(err){res.send(err)}   
         }
         
+    }
+
+    // Delete an account
+    static deleteAccount() {
+        return async (req,res) => {
+            try{
+                let account = await Account.findByIdAndDelete(req.params._id);
+                if(!account) return res.status(404).json({message: 'Account does not Exist!'})
+
+                res.json({message: 'Account Deleted Successfully'});
+            }catch(err){res.send(err)}
+        }
     }
 }

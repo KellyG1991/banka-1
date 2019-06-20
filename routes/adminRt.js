@@ -21,6 +21,24 @@ router.post(
 )
 
 router.get(
+    '/account'
+    , adminAuth
+    , StaffController.getAccounts()
+)
+
+router.get(
+    '/staff/account'
+    , staffAuth
+    , StaffController.getAccounts()
+)
+
+router.get(
+    '/account/:_id'
+    , adminAuth
+    , StaffController.accounts()
+)
+
+router.get(
     '/staff/account/:_id'
     , staffAuth
     , StaffController.accounts()
@@ -36,6 +54,18 @@ router.put(
     '/staff/account/:_id/:owner/debit'
     , staffAuth
     , StaffController.debitAccount()
+)
+
+router.delete(
+    '/account/:_id'
+    , adminAuth
+    , StaffController.deleteAccount()
+)
+
+router.delete(
+    '/staff/account/:_id'
+    , staffAuth
+    , StaffController.deleteAccount()
 )
 
 

@@ -27,9 +27,15 @@ router.get(
 )
 
 router.put(
-    '/staff/account/:_id/:owner'
+    '/staff/account/:_id/:owner/credit'
     , staffAuth
-    , StaffController.updateAccount()
+    , StaffController.creditAccount()
+)
+
+router.put(
+    '/staff/account/:_id/:owner/debit'
+    , staffAuth
+    , StaffController.debitAccount()
 )
 
 

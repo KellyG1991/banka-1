@@ -39,15 +39,33 @@ module.exports = class {
         }
     }
 
-    // Update an account
-    static updateAccount() {
+    // Credit an account
+    static creditAccount() {
         return async (req,res) => {
             try{
                 let account = await Account.findById(req.params._id);
                 if(!account) return res.status(404).json({message: 'Account Not found'});
                 
                 // Update only balance
-                account.balance = req.body.balance;
+                account.balance = parseFloat(account.balance) + parseFloat(req.body.balance);
+                await account.save();
+
+                res.send(account);
+            
+            }catch(err){res.send(err)}   
+        }
+        
+    }
+
+    // debit an account
+    static debitAccount() {
+        return async (req,res) => {
+            try{
+                let account = await Account.findById(req.params._id);
+                if(!account) return res.status(404).json({message: 'Account Not found'});
+                
+                // Update only balance
+                account.balance = parseFloat(account.balance) - parseFloat(req.body.balance);
                 await account.save();
 
                 res.send(account);

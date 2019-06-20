@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const config = require('config');
 
+
 exports.schema = new mongoose.Schema({
     ID: {
         type: Number
@@ -29,6 +30,11 @@ exports.schema = new mongoose.Schema({
     type: {
         type: String,
         default: 'Client'
+    },
+    Account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account',
+        default: undefined
     }
 },
 {
@@ -37,7 +43,7 @@ exports.schema = new mongoose.Schema({
 })
 
 
-// user model
+// client model
 exports.Client = mongoose.model('Client', exports.schema);
 
 // validate user registration
@@ -59,4 +65,7 @@ exports.clientRegister = function(req,res,next){
 
     next();
 }
+
+
+
 

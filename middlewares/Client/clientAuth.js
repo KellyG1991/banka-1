@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 module.exports = function(req,res,next){
-    const token = req.header('x-staff-token');
-    if(!token) return res.status(401).json({message: 'You are1 not authorized'});
+    const token = req.header('x-client-token');
+    if(!token) return res.status(401).json({message: 'You are notaa authorized'});
 
     try{
 
-        const decoded = jwt.verify(token, config.get('jwtStaff'));
+        const decoded = jwt.verify(token, config.get('jwtClient'));
         req.staff = decoded;
         next();
     }catch(err){

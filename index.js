@@ -22,7 +22,7 @@ mongoose.set('useFindAndModify',false);
 app.use(express.json());
 app.use(express.urlencoded());
 app.use('/api/a/admin', admin);
-app.use('/api/c/signup', client);
+app.use('/api/c/clients', client);
 
 
 

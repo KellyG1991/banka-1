@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 module.exports = function(req,res,next){
-    const token = req.header('x-client-token');
-    if(!token) return res.status(401).json({message: 'You are not authorized'});
+    const token = req.header('x-login-token');
+    if(!token) return res.status(401).json({message: 'You are notyy authorized'});
 
     try{
 

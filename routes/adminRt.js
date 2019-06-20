@@ -3,7 +3,8 @@ const router = express.Router();
 const adminAuth = require('../middlewares/Admin/adminAuth');
 const AdminController = require('../controllers/adminCont');
 const { adminRegister } = require('../model/Admin');
-const {staffRegister} = require('../model/Staff')
+const {staffRegister} = require('../model/Staff');
+const staffAuth = require('../middlewares/Staff/staffAuth');
 const StaffController = require('../controllers/staffCont');
 
 router.post(
@@ -17,6 +18,18 @@ router.post(
     , adminAuth
     , staffRegister
     , StaffController.createStaff()
+)
+
+router.get(
+    '/staff/account/:_id'
+    , staffAuth
+    , StaffController.accounts()
+)
+
+router.put(
+    '/staff/account/:_id/:owner'
+    , staffAuth
+    , StaffController.updateAccount()
 )
 
 

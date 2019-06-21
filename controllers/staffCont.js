@@ -61,6 +61,7 @@ module.exports = class {
                 
                 // Update only balance
                 account.balance = parseFloat(account.balance) + parseFloat(req.body.balance);
+                account.status = 'active'
                 account.updatedOn = Date.now();
 
                 await account.save();
@@ -81,6 +82,7 @@ module.exports = class {
                 
                 // Update only balance
                 account.balance = parseFloat(account.balance) - parseFloat(req.body.balance);
+                account.status = 'active';
                 account.updatedOn = Date.now();
                 await account.save();
 
@@ -89,6 +91,21 @@ module.exports = class {
             }catch(err){res.send(err)}   
         }
         
+    }
+
+    // activate an account
+    static activate() {
+        return async (req,res) => {
+            try{
+                let account = await Account.findById(req.params._id);
+                if(!account) res.status(404).json({message: 'Account Not Found'});
+
+                account.status = req.body.status
+                await account.save();
+
+                res.json({message: 'Account status changed'});
+            }catch(err){return res.json({message: err.message})}
+        }
     }
 
     // Delete an account

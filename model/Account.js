@@ -24,8 +24,7 @@ const accountSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['draft', 'active', 'dormant'],
-        required: true
+        enum: ['draft', 'active', 'dormant']
     },
     balance: {
         type: Number,
@@ -50,7 +49,7 @@ exports.accountRegister = function(req,res,next){
         accountNumber: Joi.number().required(),
         owner: Joi.number().required(),
         type: Joi.string().valid('saving', 'current').required(),
-        status: Joi.string().valid('draft','active','dormant').required(),
+        status: Joi.string().valid('draft','active','dormant'),
         balance: Joi.number()
     }
     const options = config.get('joiOptions');

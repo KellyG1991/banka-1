@@ -77,7 +77,10 @@ module.exports = class {
             let account = await Account.findOne({accountNumber: req.body.accountNumber});
             if(account) return res.status(400).json({message: 'Account already exists'});
 
-            account = new Account(_.pick(req.body, ['client','accountNumber','owner','type','status']));
+            account = new Account(_.pick(req.body, ['client','accountNumber','owner','type']));
+            if(account.balance > 0){
+                account.status = 'active'
+            }else{account.status = 'dormant'}
             account.client = req.client._id;
 
             Fawn.init(mongoose);

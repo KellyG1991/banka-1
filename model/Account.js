@@ -46,6 +46,7 @@ exports.accountRegister = function(req,res,next){
     const details = req.body;
 
     const schema = {
+        client: Joi.string().required(),
         accountNumber: Joi.number().required(),
         owner: Joi.number().required(),
         type: Joi.string().valid('saving', 'current').required(),

@@ -29,7 +29,7 @@ module.exports = class {
     static getAccounts() {
         return async (req,res) => {
             try{
-                let account = await Account.find();
+                let account = await Account.find().populate('client', 'ID email firstName lastName');
                 if(!account) return res.status(404).json({message: 'No Accounts found'});
      
                 res.send(account);
@@ -43,7 +43,7 @@ module.exports = class {
     static accounts() {
         return async (req,res) => {
             try{
-                let account = await Account.findById(req.params._id);
+                let account = await Account.findById(req.params._id).populate('client', 'ID email firstName lastName');
                 if(!account) return res.status(404).json({message: 'Account not found'});
      
                 res.send(account);
@@ -56,7 +56,7 @@ module.exports = class {
     static creditAccount() {
         return async (req,res) => {
             try{
-                let account = await Account.findById(req.params._id);
+                let account = await Account.findById(req.params._id).populate('client', 'ID email firstName lastName');
                 if(!account) return res.status(404).json({message: 'Account Not found'});
                 
                 // Update only balance
@@ -97,7 +97,7 @@ module.exports = class {
     static activate() {
         return async (req,res) => {
             try{
-                let account = await Account.findById(req.params._id);
+                let account = await Account.findById(req.params._id).populate('client', 'ID email firstName lastName');
                 if(!account) res.status(404).json({message: 'Account Not Found'});
 
                 account.status = req.body.status

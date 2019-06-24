@@ -78,18 +78,7 @@ module.exports = class {
             if(account) return res.status(400).json({message: 'Account already exists'});
 
             account = new Account(_.pick(req.body, ['client','accountNumber','owner','type']));
-            if(account.balance > 0){
-                account.status = 'active'
-            }else{account.status = 'dormant'}
-            account.client = req.client._id;
-
-            Fawn.init(mongoose);
-
-            const task = Fawn.Task();
-
-            await task.save(Account.collection.collectionName, account)
-                .update(Client.collection.collectionName, {_id: req.client._id}, {$push: {Account: account._id}})
-                .run();
+            await account.save();
             
             return res.status(201).json({
                 message: 'Account Created Successfully',

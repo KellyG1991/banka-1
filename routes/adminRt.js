@@ -45,15 +45,21 @@ router.get(
 )
 
 router.put(
-    '/staff/account/:_id/:owner/credit'
+    '/staff/account/:_id/credit'
     , staffAuth
     , StaffController.creditAccount()
 )
 
 router.put(
-    '/staff/account/:_id/:owner/debit'
+    '/staff/account/:_id/debit'
     , staffAuth
     , StaffController.debitAccount()
+)
+
+router.put(
+    '/staff/account/:_id/activate'
+    ,staffAuth
+    ,StaffController.activate()
 )
 
 router.delete(

@@ -19,8 +19,8 @@ module.exports = class {
                 await staff.save();
 
                 // generate staff token
-                const token = jwt.sign({_id: staff._id}, config.get('jwtStaff'));
-                res.header('x-staff-token',token).json({message: 'You have successfully created Staff Member'});
+                const token = jwt.sign({_id: staff._id}, config.get('jwtStaff'), {expiresIn: '1h'});
+                res.header('x-staff-token',token).json({message: 'You have successfully created Staff Member', token:token});
             }catch(err){res.send(err.message)}
         }
     }

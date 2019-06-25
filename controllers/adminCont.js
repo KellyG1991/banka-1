@@ -18,8 +18,8 @@ module.exports = class {
                 await admin.save();
     
                 // generate token
-                const token = jwt.sign({_id: admin._id}, config.get('jwtAdmin'));
-                res.header('x-admin-token',token).json({message: 'Admin created successfully'});
+                const token = jwt.sign({_id: admin._id}, config.get('jwtAdmin'), {expiresIn: '1h'});
+                res.header('x-admin-token',token).json({message: 'Admin created successfully', token: token});
             }catch(err){res.send(err.message)}
             
         }

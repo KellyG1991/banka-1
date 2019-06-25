@@ -4,8 +4,6 @@ const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const config = require('config');
 const jwt = require('jsonwebtoken');
-const Fawn = require('fawn');
-const mongoose = require('mongoose');
 
 module.exports = class {
     static createClient() {
@@ -66,8 +64,8 @@ module.exports = class {
             if(!validPassword) return res.status(422).json({message: 'Invalid email or password'});
             await client.save();
 
-            const lgToken = jwt.sign({email: client.email}, config.get('jwtClient'));
-            res.header('x-login-token', lgToken).json({message: 'Login Successful'});
+            const lgToken = jwt.sign({email: client.email}, config.get('jwtClient'), {expiresIn: '1h'});
+            res.header('x-login-token', lgToken).json({message: 'Login Successful', token: lgToken});
         }
     }
 

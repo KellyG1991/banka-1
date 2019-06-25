@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 const config = require('config');
 const admin = require('./routes/adminRt');
 const client = require('./routes/clientRt');
+const morgan = require('morgan')
 const _ = require('lodash');
 
-if(!(_.pick(config.get,['jwtKey','jwtAdmin','jwtStaff','jwtClient']))){
+
+if(!config.get('jwtKey', 'jwtAdmin', 'jwtClient', 'jwtStaff')){
     console.log('\x1b[31m%s\x1b[0m', 'Error: Please Enter all keys');
     process.exit(1);
 }
@@ -21,6 +23,7 @@ mongoose.set('useFindAndModify',false);
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(morgan('tiny'));
 app.use('/api/a/admin', admin);
 app.use('/api/c/clients', client);
 

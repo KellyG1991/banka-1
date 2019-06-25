@@ -64,7 +64,7 @@ module.exports = class {
             if(!validPassword) return res.status(422).json({message: 'Invalid email or password'});
             await client.save();
 
-            const lgToken = jwt.sign({email: client.email}, config.get('jwtClient'), {expiresIn: '1h'});
+            const lgToken = jwt.sign({email: client.email}, config.get('jwtClient'), {expiresIn: '15m'});
             res.header('x-login-token', lgToken).json({message: 'Login Successful', token: lgToken});
         }
     }

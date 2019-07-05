@@ -10,16 +10,31 @@ module.exports = class {
     
                 user = new User(_.pick(req.body,['firstName', 'lastName', 'email', 'password', 'DOB']));
                 user.password = await user.hashPassword(user.password);
-                user.token = await user.generateAuthToken();
 
                 await user.save();
     
                 res.json({
                     success: 'User created successfully',
-                    token: user.token
+                    id: user._id
                 });
             }catch(err){res.status(400).json({error: err.message})}
             
+        }
+    }
+
+    static login() {
+        return async (req,res) => {
+            try{
+                let user = await User.validCredentials(req.body.email, req.body.password);
+                user.token = await user.generateAuthToken();
+
+                await user.save();
+
+                res.json({
+                    success: 'Successful Login',
+                    token: user.token
+                })
+            }catch(err){res.status(400).json({error: err.message})}
         }
     }
 }

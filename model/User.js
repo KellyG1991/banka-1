@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    token: {type: String, required: true},
+    token: {type: String},
     DOB: {
         type: Date,
         required: true,
@@ -52,11 +52,22 @@ userSchema.methods.hashPassword = async (password) => {
 }
 // generate token
 userSchema.methods.generateAuthToken = async () => {
-
-   const token = jwt.sign({_id: this._id}, config.get('jwtKey'));
+   
+   const token = await jwt.sign({_id: this._id}, config.get('jwtKey'));
    this.token = token;
 
    return token; 
+}
+
+// user credentials
+userSchema.statics.validCredentials = async (email, password) => {
+    let user = await this.User.findOne({ email });
+    if(!user) throw new Error('Invalid email or password');
+
+    let validPassword = await bcrypt.compare(password, user.password);
+    if(!validPassword) throw new Error('Invalid email1 or password');
+
+    return user;
 }
 
 // validate User

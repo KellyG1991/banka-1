@@ -1,0 +1,7 @@
+{
+    "jwtKey": "",
+    "joiOptions": {
+        "abortEarly": false,
+        "stripUnknown": true
+    }
+}

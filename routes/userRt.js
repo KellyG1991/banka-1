@@ -24,6 +24,10 @@ router.post(
     , AccountController.create()
 )
 
+router.get(
+    '/'
+    , UserController.show()
+)
 
 
 module.exports = router;

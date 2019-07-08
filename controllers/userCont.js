@@ -37,4 +37,15 @@ module.exports = class {
             }catch(err){res.status(400).json({error: err.message})}
         }
     }
+
+    static show() {
+        return async(req,res) => {
+            try{
+                let user = await User.find();
+                if(!user) return res.status(404).json({message: 'No users available'});
+
+                res.send(user);
+            }catch(ex){res.status(400).json({error: err.message})}
+        }
+    }
 }

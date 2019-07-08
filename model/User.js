@@ -65,7 +65,7 @@ userSchema.statics.validCredentials = async (email, password) => {
     if(!user) throw new Error('Invalid email or password');
 
     let validPassword = await bcrypt.compare(password, user.password);
-    if(!validPassword) throw new Error('Invalid email1 or password');
+    if(!validPassword) throw new Error('Invalid email or password');
 
     return user;
 }

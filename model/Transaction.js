@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const { Account } = require('../Account');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
 
-const depositSchema = new mongoose.Schema({
+const transactionSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ['Deposit', 'Withdrawal']
+    },
     accountName: {
         type: String,
         required: true
@@ -19,15 +22,14 @@ const depositSchema = new mongoose.Schema({
         required: true
     },
     depositedBy: {
-        type: String,
-        required: true
+        type: String
     },
     token: {type: String}
 },{timestamps: {createdAt:'created_at'}, autoCreate: false});
 
 
 // generate token
-depositSchema.methods.generateAuthToken = async () => {
+transactionSchema.methods.generateAuthToken = async () => {
    
     const token = await jwt.sign({_id: this._id}, config.get('jwtKey'),{expiresIn: "24hr"});
     this.token = token;
@@ -36,14 +38,14 @@ depositSchema.methods.generateAuthToken = async () => {
  }
 
  // Joi validation
- exports.validDeposit = function(req,res,next) {
+ exports.validTransaction = function(req,res,next) {
      const details = req.body;
 
      const schema = {
+         type: Joi.string().valid('Deposit', 'Withdrawal').required(),
          accountName: Joi.string().required(),
          accountNumber : Joi.number().required(),
-         amount: Joi.number().required(),
-         depositedBy: Joi.string().required()
+         amount: Joi.number().required()
      }
 
      const options = config.get('joiOptions');
@@ -55,4 +57,4 @@ depositSchema.methods.generateAuthToken = async () => {
  }
 
 //model
-exports.Deposit = mongoose.model('Deposit', depositSchema);
+exports.Transaction = mongoose.model('Transaction', transactionSchema);

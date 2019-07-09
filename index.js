@@ -3,12 +3,12 @@ const app = express();
 const port = process.env.PORT || 1991;
 require('./src/db');
 const user = require('./routes/userRt');
-const deposit = require('./routes/transactionRt/depositRt')
+const transaction = require('./routes/transactionRt')
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use('/api/v1/users', user);
-app.use('/api/v1/transactions',deposit);
+app.use('/api/v1/transactions',transaction);
 
 
 app.listen(port, function(){

@@ -51,7 +51,6 @@ module.exports = class {
                }))
 
                let dater = new Dater(_.pick(req.body, ['start','end']));
-               await dater.save();
                let transaction = await Transaction.find({datedIn: {$gte:dater.start, $lt: dater.end}});
                if(!transaction) return res.status(404).json({message: 'No transactions available'});
 

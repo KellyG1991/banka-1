@@ -1,6 +1,7 @@
 const { Transaction } = require('../model/Transaction');
 const { Account } = require('../model/Account');
 const _ = require('lodash');
+const mongoose = require('mongoose');
 
 
 module.exports = class {
@@ -31,10 +32,32 @@ module.exports = class {
 
     static showAll() {
         return async (req,res) => {
-            let transaction = await Transaction.find();
-            if(!transaction) return res.status(404).json({message: 'No transactions available'});
+            try{
+                let transaction = await Transaction.find();
+                if(!transaction) return res.status(404).json({message: 'No transactions available'});
+                
+                res.send(transaction);
+            }catch(err){res.status(400).json({Error: err.message})}
+            
+        }
+    }
 
-            res.send(transaction);
+    static byDate() {
+        return async (req,res) => {
+            try{
+               const Dater = mongoose.model('Date', new mongoose.Schema({
+                   start: {type: Date},
+                   end: {type: Date}
+               }))
+
+               let dater = new Dater(_.pick(req.body, ['start','end']));
+               await dater.save();
+               let transaction = await Transaction.find({datedIn: {$gte:dater.start, $lt: dater.end}});
+               if(!transaction) return res.status(404).json({message: 'No transactions available'});
+
+               res.send(transaction);
+
+            }catch(err){res.status(400).json({Error: err.message})}
         }
     }
 

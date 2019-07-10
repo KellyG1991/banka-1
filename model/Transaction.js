@@ -24,14 +24,15 @@ const transactionSchema = new mongoose.Schema({
     depositedBy: {
         type: String
     },
-    token: {type: String}
-},{timestamps: {createdAt:'created_at'}, autoCreate: false});
+    token: {type: String},
+    datedIn: {type: Date, default: Date.now()}
+});
 
 
 // generate token
 transactionSchema.methods.generateAuthToken = async () => {
    
-    const token = await jwt.sign({_id: this._id}, config.get('jwtKey'),{expiresIn: "24hr"});
+    const token = await jwt.sign({_id: this._id}, config.get('jwtKey'),{expiresIn: 86400 });
     this.token = token;
  
     return token; 

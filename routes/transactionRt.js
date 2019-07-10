@@ -15,6 +15,11 @@ router.get(
     , auth
     , TransactionController.showAll()
 )
+router.get(
+    '/date'
+    , auth
+    , TransactionController.byDate()
+)
 
 router.get(
     '/:_id'

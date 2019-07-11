@@ -24,4 +24,15 @@ module.exports = class {
             
         }
     }
+
+    static renewToken() {
+        return async (req,res) => {
+            try{
+                let user = await User.validCredentials(req.body.email, req.body.password);
+                user.token = await user.generateAuthToken();
+
+                res.json({token: user.token});
+            }catch(err){res.status(400).json({Error: err.message})}
+        }
+    }
 }

@@ -60,6 +60,14 @@ userSchema.methods.generateAuthToken = async () => {
    return token; 
 }
 
+// renew token
+userSchema.methods.renewToken = async () => {
+    let user = await this.User.validCredentials(this.email, this.password);
+    this.token = await user.generateAuthToken();
+
+    return this.token;
+}
+
 // user credentials
 userSchema.statics.validCredentials = async (email, password) => {
     let user = await this.User.findOne({ email });

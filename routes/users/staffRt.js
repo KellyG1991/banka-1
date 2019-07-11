@@ -13,6 +13,11 @@ router.post(
 )
 
 router.post(
+    '/renewToken'
+    , AdminController.renewToken()
+)
+
+router.post(
     '/staff'
     , auth
     , admin

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const config = require('config');
 const {User} = require('./User');
+const randomize = require('randomatic');
 
 const accountSchema = new mongoose.Schema({
     ID: {
@@ -44,12 +45,20 @@ accountSchema.methods.setAccountName = async (_id, accName) => {
     return this.accountName;
 }
 
+// set the account number 
+accountSchema.methods.setAccountNumber = () => {
+    let randomizer = randomize('0', 15);
+    this.accountName = randomizer;
+
+    return this.accountName;
+}
+
 exports.validAccount = async (req,res, next) => {
     const details = req.body;
 
     const schema = {
         ID: Joi.number().required(),
-        accountNumber: Joi.number().required()
+        type: Joi.string().valid('Savings', 'Current')
     }
 
     const options = config.get('joiOptions');

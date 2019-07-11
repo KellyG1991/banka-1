@@ -8,7 +8,7 @@ module.exports = class {
                 let user = await User.findOne({email: req.body.email});
                 if(user) return res.status(422).json({message: 'User already exists'});
     
-                user = new User(_.pick(req.body,['firstName', 'lastName', 'email', 'password', 'DOB']));
+                user = new User(_.pick(req.body,['type','firstName', 'lastName', 'email', 'password', 'DOB']));
                 user.password = await user.hashPassword(user.password);
 
                 await user.save();

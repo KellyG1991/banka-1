@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {validateUser} = require('../model/User');
-const UserController = require('../controllers/userCont');
-const auth = require('../middlewares/auth');
-const { validAccount } = require('../model/Account');
-const AccountController = require('../controllers/accountCont');
+const {validateUser} = require('../../model/User');
+const UserController = require('../../controllers/userCont');
+const auth = require('../../middlewares/auth');
+const { validAccount } = require('../../model/Account');
+const AccountController = require('../../controllers/accountCont');
 
 router.post(
     '/signup'

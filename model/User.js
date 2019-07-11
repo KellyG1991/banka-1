@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    position: String,
     isAdmin: Boolean
 },
 {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}, autoCreate: false}
@@ -75,11 +76,14 @@ exports.validateUser = async (req,res,next) => {
     const details = req.body;
 
     const schema = {
+        type: Joi.string().valid('Client', 'Staff'),
         firstName: Joi.string().trim().required(),
         lastName: Joi.string().trim().required(),
         email: Joi.string().email().required(),
         password: Joi.string().required(),
-        DOB: Joi.date().format('YYY-MM-DD').required()
+        DOB: Joi.date().format('YYY-MM-DD').required(),
+        position: Joi.string(),
+        isAdmin: Joi.boolean()
     }
 
     const options = config.get('joiOptions');

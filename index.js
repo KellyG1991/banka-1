@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 1991;
 require('./src/db');
-const user = require('./routes/userRt');
-const transaction = require('./routes/transactionRt')
+const client = require('./routes/users/clientRt');
+const transaction = require('./routes/transactionRt');
+const staff = require('./routes/users/staffRt');
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use('/api/v1/users', user);
+app.use('/api/v1/users', client);
 app.use('/api/v1/transactions',transaction);
+app.use('/api/v1/admin', staff);
 
 
 app.listen(port, function(){

@@ -30,9 +30,33 @@ module.exports = class {
             try{
                 let user = await User.validCredentials(req.body.email, req.body.password);
                 user.token = await user.generateAuthToken();
+                await user.save();
 
                 res.json({token: user.token});
             }catch(err){res.status(400).json({Error: err.message})}
         }
     }
+
+    static show() {
+        return async(req,res) => {
+            try{
+                let user = await User.find();
+                if(!user) return res.status(404).json({message: 'No users available'});
+
+                res.send(user);
+            }catch(ex){res.status(400).json({error: err.message})}
+        }
+    }
+
+    static index() {
+        return async(req,res) => {
+            try{
+                let user = await User.findById(req.params._id);
+                if(!user) return res.status(404).json({message: 'No users available'});
+
+                res.send(user);
+            }catch(ex){res.status(400).json({error: err.message})}
+        }
+    }
+
 }

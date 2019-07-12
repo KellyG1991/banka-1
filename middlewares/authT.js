@@ -3,7 +3,7 @@ const config = require('config');
 const { Transaction } = require('../model/Transaction');
 
 module.exports = async function(req,res,next) {
-    let token = req.header('Authorization');
+    let token = req.header('Transaction');
     try{
         let decoded = jwt.verify(token, config.get('jwtKey'));
         let transaction = await Transaction.findOne({token: decoded, 'token':token});

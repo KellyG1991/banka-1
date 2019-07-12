@@ -3,8 +3,6 @@ const router = express.Router();
 const {validateUser} = require('../../model/User');
 const UserController = require('../../controllers/userCont');
 const auth = require('../../middlewares/auth');
-const admin = require('../../middlewares/admin');
-const adminToken = require('../../middlewares/auth');
 const { validAccount } = require('../../model/Account');
 const AccountController = require('../../controllers/accountCont');
 
@@ -26,12 +24,7 @@ router.post(
     , AccountController.create()
 )
 
-router.get(
-    '/'
-    , adminToken
-    , admin
-    , UserController.show()
-)
+
 
 
 module.exports = router;

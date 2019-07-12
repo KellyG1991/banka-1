@@ -1,13 +1,12 @@
 const { Account } = require('../model/Account');
 const { User } = require('../model/User');
 const _ = require('lodash');
-const randomize = require('randomatic');
 
 module.exports = class {
     static create() {
         return async (req,res) => {
             try{
-                let account = await Account.findOne({accountNumber: req.body.accountNumber});
+                let account = await Account.findOne({ID: req.body.ID});
                 if(account) res.status(422).json({message: 'Account is owned'});
     
                 account = new Account(_.pick(req.body,['ID']));
@@ -24,8 +23,7 @@ module.exports = class {
                     balance: account.balance,
                     type: account.type
                 });
-            }catch(ex){res.status(400).json({message: ex.message})}
-            
+            }catch(ex){res.status(400).json({message: ex.message})} 
         }
     }
 }

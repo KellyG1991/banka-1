@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middlewares/auth');
+const acc = require('../../middlewares/authAcc')
 const authTrans = require('../../middlewares/authT');
 const admin = require('../../middlewares/admin');
 const staff = require('../../middlewares/staff');
@@ -52,17 +53,19 @@ router.post(
 )
 
 router.post(
-    '/staff/:accountNumber/:_id/credit'
+    '/staff/acc/me/credit'
     , auth
     , staff
+    , acc
     , authTrans
     , StaffController.credit()
 )
 
 router.post(
-    '/staff/:accountNumber/:_id/debit'
+    '/staff/acc/me/debit'
     , auth
     , staff
+    , acc
     , authTrans
     , StaffController.debit()
 )
@@ -82,9 +85,10 @@ router.get(
 )
 
 router.delete(
-    '/staff/account/:_id'
+    '/staff/account/acc'
     , auth
     , staff
+    , acc
     , StaffController.deactivate()
 )
 

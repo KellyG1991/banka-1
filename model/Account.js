@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 const config = require('config');
 const {User} = require('./User');
 const randomize = require('randomatic');
@@ -30,7 +31,8 @@ const accountSchema = new mongoose.Schema({
     balance: {
         type: Number,
         default: 0
-    }
+    },
+    token: {type: String}
 },
 {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}, autoCreate:false}
 )
@@ -52,6 +54,18 @@ accountSchema.methods.setAccountNumber = () => {
 
     return this.accountName;
 }
+
+
+// generate token
+accountSchema.methods.generateAuthToken = async () => {
+   
+    const token = await jwt.sign({_id: this._id}, config.get('jwtKey'), {expiresIn: '365d'});
+    this.token = token;
+ 
+    return token; 
+ }
+ 
+ 
 
 exports.validAccount = async (req,res, next) => {
     const details = req.body;

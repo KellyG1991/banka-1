@@ -8,7 +8,7 @@ module.exports = class {
     static transaction() {
         return async (req,res) => {
             try{
-                let account = await Account.findById(req.params._id);
+                let account = await Account.findById(req.account._id);
                 let transaction = new Transaction(_.pick(req.body,['type','accountName', 'accountNumber', 'amount']))
                 
                 if(account.accountName !== transaction.accountName){
@@ -62,8 +62,7 @@ module.exports = class {
 
     static index() {
         return async (req,res) => {
-            let transaction = await Transaction.findById(req.params._id);
-            if(!transaction) return res.status(404).json({message: 'No transactions available'});
+            let transaction = await Transaction.findById(req.transaction._id);
 
             res.json({
                 type: transaction.type,

@@ -18,10 +18,15 @@ router.post(
 )
 
 router.post(
-    '/:_id/account'
+    '/me/account'
     , auth
     , validAccount
     , AccountController.create()
+)
+
+router.post(
+    '/account'
+    , AccountController.renewToken()
 )
 
 

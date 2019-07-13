@@ -32,7 +32,7 @@ const transactionSchema = new mongoose.Schema({
 // generate token
 transactionSchema.methods.generateAuthToken = async () => {
    
-    const token = await jwt.sign({_id: this._id}, config.get('jwtKey'),{expiresIn: 86400 });
+    const token = await jwt.sign({_id: this._id}, config.get('jwtKey'));
     this.token = token;
  
     return token; 

@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/authT');
+const acc = require('../middlewares/authAcc');
 const { validTransaction } = require('../model/Transaction');
 const TransactionController = require('../controllers/transactionCont');
 
 router.post(
-    '/:_id'
+    '/account/me'
+    , acc
     , validTransaction
     , TransactionController.transaction()
 )
@@ -22,7 +24,7 @@ router.get(
 )
 
 router.get(
-    '/:_id'
+    '/me'
     , auth
     , TransactionController.index()
 )

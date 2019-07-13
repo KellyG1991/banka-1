@@ -10,7 +10,8 @@ module.exports = class {
                 let user = await User.findOne({email: req.body.email});
                 if(user) return res.status(422).json({message: 'User already exists'});
     
-                user = new User(_.pick(req.body,['type','firstName', 'lastName', 'email', 'password', 'DOB', 'position']));
+                user = new User(_.pick(req.body,['firstName', 'lastName', 'email', 'password', 'DOB', 'position']));
+                user.type = 'Staff';
                 user.password = await user.hashPassword(user.password);
                 user.token = await user.generateAuthToken();
 
@@ -65,7 +66,7 @@ module.exports = class {
             let account = await Account.findOne(req.body.accountNumber);
             if(!account) return res.status(404).json({Error: 'Account Not found'});
 
-            let transaction = await Transaction.findById(req.params._id);
+            let transaction = await Transaction.findById(req.transaction._id);
             if(transaction.type !== 'Deposit') return res.status(401).json({Alert: 'Not allowed'});
             
             
@@ -87,7 +88,7 @@ module.exports = class {
             let account = await Account.findOne(req.body.accountNumber);
             if(!account) return res.status(404).json({Error: 'Account Not found'});
 
-            let transaction = await Transaction.findById(req.params._id);
+            let transaction = await Transaction.findById(req.transaction._id);
             if(transaction.type !== 'Withdrawal') return res.status(401).json({Alert: 'Not allowed'});
             
             
@@ -104,7 +105,7 @@ module.exports = class {
 
     static deactivate(){
         return async (req,res) => {
-            let account = await Account.findByIdAndDelete(req.params._id);
+            let account = await Account.findByIdAndDelete(req.account._id);
             if(!account) return res.status(404).json({Error: 'Account Not found'});
 
            await account.save();

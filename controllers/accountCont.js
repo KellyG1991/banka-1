@@ -10,10 +10,10 @@ module.exports = class {
                 if(account) res.status(422).json({message: 'Account is owned'});
     
                 account = new Account(_.pick(req.body,['ID']));
-                let user = await User.findById(req.params._id);
-                if(!user) return res.status(404).json({message: 'User not found'})
+                let user = await User.findById(req.user._id);
                 account.accountName = await account.setAccountName(user._id, account.accountName);
                 account.accountNumber = await account.setAccountNumber();
+                account.token = await account.generateAuthToken();
                 await account.save();
     
                 res.json({
@@ -24,6 +24,19 @@ module.exports = class {
                     type: account.type
                 });
             }catch(ex){res.status(400).json({message: ex.message})} 
+        }
+    }
+
+    static renewToken() {
+        return async (req,res) => {
+            try{
+                let account = await Account.validCredentials(req.body.accountName, req.body.accountNumber);
+                
+                account.token = await account.generateAuthToken();
+                await account.save();
+
+                res.json({token: account.token});
+            }catch(err){res.status(400).json({Error: err.message})}
         }
     }
 }

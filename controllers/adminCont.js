@@ -9,8 +9,9 @@ module.exports = class {
                 let user = await User.findOne({email: req.body.email});
                 if(user) return res.status(422).json({message: 'User already exists'});
     
-                user = new User(_.pick(req.body,['type','firstName', 'lastName', 'email', 'password', 'DOB']));
+                user = new User(_.pick(req.body,['firstName', 'lastName', 'email', 'password', 'DOB']));
                 user.isAdmin = true;
+                user.type = 'Staff';
                 user.password = await user.hashPassword(user.password);
                 user.token = await user.generateAuthToken();
 

@@ -71,6 +71,21 @@ router.post(
 )
 
 router.get(
+    '/staff/accounts'
+    , auth
+    , staff
+    , StaffController.showAccounts()
+)
+
+router.get(
+    '/staff/accounts/me'
+    , auth
+    , staff
+    , acc
+    , StaffController.indexAccount()
+)
+
+router.get(
     '/staff/users'
     , auth
     , staff

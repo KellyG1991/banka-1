@@ -9,7 +9,7 @@ module.exports = class {
         return async (req,res) => {
             try{
                 let account = await Account.findById(req.account._id);
-                let transaction = new Transaction(_.pick(req.body,['type','accountName', 'accountNumber', 'amount']))
+                let transaction = new Transaction(_.pick(req.body,['type','accountName', 'accountNumber', 'amount']));
                 
                 if(account.accountName !== transaction.accountName){
                     throw new Error('Invalid Account');

@@ -21,22 +21,10 @@ module.exports = class {
                     accountName: account.accountName,
                     accountNumber: account.accountNumber,
                     balance: account.balance,
-                    type: account.type
+                    type: account.type,
+                    Account_Token: account.token
                 });
             }catch(ex){res.status(400).json({message: ex.message})} 
-        }
-    }
-
-    static renewToken() {
-        return async (req,res) => {
-            try{
-                let account = await Account.validCredentials(req.body.accountName, req.body.accountNumber);
-                
-                account.token = await account.generateAuthToken();
-                await account.save();
-
-                res.json({token: account.token});
-            }catch(err){res.status(400).json({Error: err.message})}
         }
     }
 }

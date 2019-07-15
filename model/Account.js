@@ -33,6 +33,7 @@ const accountSchema = new mongoose.Schema({
         default: 0
     },
     token: {type: String}
+    
 },
 {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}, autoCreate:false}
 )

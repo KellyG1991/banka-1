@@ -24,10 +24,7 @@ router.post(
     , AccountController.create()
 )
 
-router.post(
-    '/account'
-    , AccountController.renewToken()
-)
+
 
 
 

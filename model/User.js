@@ -54,7 +54,7 @@ userSchema.methods.hashPassword = async (password) => {
 // generate token
 userSchema.methods.generateAuthToken = async () => {
    
-   const token = await jwt.sign({_id: this._id}, config.get('jwtKey'), {expiresIn: 3600});
+   const token = await jwt.sign({_id: this._id}, config.get('jwtKey'), {expiresIn: "365d"});
    this.token = token;
 
    return token; 

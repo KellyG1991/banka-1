@@ -60,10 +60,32 @@ module.exports = class {
         }
     }
 
+    static showAccounts(){
+        return async(req,res) => {
+            try{
+                let account = await Account.find();
+                if(!account) return res.status(422).json({Error: 'Account does not exist'});
+
+                res.json(account);
+            }catch(err){res.status(400).json({Error: err.message})}
+        }
+    }
+
+    static indexAccount(){
+        return async(req,res) => {
+            try{
+                let account = await Account.findOne(req.account._id).populate('transactions');
+                if(!account) return res.status(422).json({Error: 'Account does not exist'});
+
+                res.json(account);
+            }catch(err){res.status(400).json({Error: err.message})}
+        }
+    }
+
     static credit() {
         return async (req,res) => {
            
-            let account = await Account.findOne(req.body.accountNumber);
+            let account = await Account.findOne(req.account._id);
             if(!account) return res.status(404).json({Error: 'Account Not found'});
 
             let transaction = await Transaction.findById(req.transaction._id);
@@ -85,7 +107,7 @@ module.exports = class {
     static debit(){
         return async (req,res) => {
            
-            let account = await Account.findOne(req.body.accountNumber);
+            let account = await Account.findOne(req.account._id);
             if(!account) return res.status(404).json({Error: 'Account Not found'});
 
             let transaction = await Transaction.findById(req.transaction._id);

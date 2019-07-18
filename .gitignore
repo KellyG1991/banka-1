@@ -3,5 +3,5 @@ KellyBanka
 KellyBanka.pub
 myenvironment.txt
 app.json
-uncaughtErrors.json
+appUncaught.json
 nodemon.json

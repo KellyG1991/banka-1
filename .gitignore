@@ -4,3 +4,4 @@ KellyBanka.pub
 myenvironment.txt
 app.json
 uncaughtErrors.json
+nodemon.json

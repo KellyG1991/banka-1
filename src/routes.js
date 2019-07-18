@@ -4,6 +4,8 @@ const client = require('../routes/users/clientRt');
 const transaction = require('../routes/transactionRt');
 const staff = require('../routes/users/staffRt');
 const morgan = require('morgan');
+
+
 module.exports = (app) => {
     app.use(express.json());
     app.use(express.urlencoded({extended:true}));

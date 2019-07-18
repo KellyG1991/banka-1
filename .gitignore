@@ -2,3 +2,5 @@ node_modules/
 KellyBanka
 KellyBanka.pub
 myenvironment.txt
+app.json
+uncaughtErrors.json

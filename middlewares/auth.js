@@ -11,7 +11,7 @@ module.exports = async function(req,res,next) {
     
         req.user = user;
         next(); 
-    } catch(ex) {res.status(400).json({message: 'Invalid1 Token'})}
+    } catch(ex) {res.status(401).json({message: 'Invalid1 Token'})}
     
 
    

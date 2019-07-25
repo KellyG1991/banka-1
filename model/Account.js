@@ -43,7 +43,7 @@ accountSchema.methods.setAccountName = async (_id, accName) => {
     
     let user = await User.findOne({ _id });
     this.accountName = accName;
-    this.accountName = await user.firstName +" "+ user.lastName;
+    this.accountName = await user.firstName.toUpperCase() +" "+ user.lastName.toUpperCase();
 
     return this.accountName;
 }

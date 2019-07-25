@@ -1,7 +1,7 @@
 const config = require('config');
 
 module.exports = () => {
-    if(!process.env.MONGODB_URI){
+    if(!config.get("db")){
         throw new Error('DATABASE NOT DEFINED');
     }
     else if(!config.get('jwtKey')){

@@ -14,17 +14,18 @@ router.post(
 
 router.get(
     '/'
-    , auth
+    , acc
     , TransactionController.showAll()
 )
 router.get(
     '/date'
-    , auth
+    , acc
     , TransactionController.byDate()
 )
 
 router.get(
     '/me'
+    , acc
     , auth
     , TransactionController.index()
 )

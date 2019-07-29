@@ -21,6 +21,8 @@ router.post(
 
 router.post(
     '/renewToken'
+    , auth
+    , admin
     , AdminController.renewToken()
 )
 

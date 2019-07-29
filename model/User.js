@@ -70,7 +70,7 @@ userSchema.methods.renewToken = async () => {
 
 // user credentials
 userSchema.statics.validCredentials = async (email, password) => {
-    let user = await this.User.findOne({ email });
+    let user = await exports.User.findOne({ email });
     if(!user) throw new Error('Invalid email or password');
 
     let validPassword = await bcrypt.compare(password, user.password);

@@ -51,6 +51,8 @@ router.post(
 )
 router.post(
     '/staff/renewToken'
+    , auth
+    , staff
     , StaffController.renewToken()
 )
 
@@ -102,7 +104,7 @@ router.get(
 )
 
 router.delete(
-    '/staff/account/acc'
+    '/staff/accounts/acc'
     , auth
     , staff
     , acc

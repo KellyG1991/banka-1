@@ -35,8 +35,7 @@
     "winston": "^2.4.4"
   },
   "jest": {
-    "verbose": true,
-    "testURL": "http://localhost/"
+    "testEnvironment": "node"
   },
   "devDependencies": {
     "jest": "^24.8.0",

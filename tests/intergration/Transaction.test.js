@@ -4,7 +4,6 @@ const {Transaction} = require('../../model/Transaction')
 const {Account} = require('../../model/Account')
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 jest.setTimeout(10000);
 
@@ -97,7 +96,6 @@ describe('/api/v1/transactions', () => {
                 .set('Transaction', `${trans.token}`)
                 .send()
 
-            console.log(res.body);
             expect(res.status).toBe(200);
             done();
         })

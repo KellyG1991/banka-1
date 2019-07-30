@@ -1,7 +1,6 @@
 const app = require('../../app');
 const request = require('supertest');
 const {User} = require('../../model/User');
-const {Account} = require('../../model/Account')
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcrypt');
@@ -16,7 +15,6 @@ describe('/api/v1/users', () =>{
     beforeEach( async () => {
         app; 
         await User.deleteMany();
-        await Account.deleteMany();
         user1 = {
             _id: user1Id,
             type: "Client",

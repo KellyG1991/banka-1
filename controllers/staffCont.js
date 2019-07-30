@@ -119,7 +119,7 @@ module.exports = class {
             
 
             res.json({
-                success: 'Account credited successfully',
+                success: 'Account debited successfully',
                 balance: account.balance
             })
         }
@@ -130,8 +130,7 @@ module.exports = class {
             let account = await Account.findByIdAndDelete(req.account._id);
             if(!account) return res.status(404).json({Error: 'Account Not found'});
 
-           await account.save();
-
+            await account.save();
             res.json({
                 Success: 'Account Deactivated successfully',
                 Account_Number: account.accountNumber

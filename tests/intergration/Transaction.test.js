@@ -48,6 +48,33 @@ describe('/api/v1/transactions', () => {
     })
 
     describe('POST /' , () => {
+        it('should throw an error if wrong account is put after making a DEPOSIT/WITHDRAWAL request', async (done) => {
+           const res = await request(app)
+                .post('/api/v1/transactions/account/me')
+                .set('Account-Token', `${acc.token}`)
+                .send({
+                    type: 'Deposit',
+                    accountName: "BOBBY BROWN",
+                    accountNumber: 393830285000259,
+                    amount: 1000000
+                })
+            
+            expect(res.status).toBe(400);
+            done();
+        })
+
+        it('should get a 401 after making a DEPOSIT/WITHDRAWAL request', async (done) => {
+            await request(app)
+                .post('/api/v1/transactions/account/me')
+                .send({
+                    type: 'Deposit',
+                    accountName: "BOBBY BROWN",
+                    accountNumber: 393830285020259,
+                    amount: 1000000
+                }).expect(401)
+            done();
+        })
+
         it('should get a 200 after making a DEPOSIT/WITHDRAWAL request', async (done) => {
             await request(app)
                 .post('/api/v1/transactions/account/me')

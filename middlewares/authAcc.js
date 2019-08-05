@@ -11,6 +11,6 @@ module.exports = async function(req,res,next) {
     
         req.account = account;
         next(); 
-    } catch(ex) {res.status(400).json({message: 'Invalidx Token'})}
+    } catch(ex) {res.status(401).json({message: 'Invalidx Token'})}
     
 }

@@ -90,6 +90,15 @@ describe('/api/v1/admin', () =>{
     });
 
     describe('GET /', () => {
+        it('should get a 401 when trying to get all users', async (done) => {
+            const res = await request(app)
+                .get('/api/v1/admin')
+                .send()
+            
+            expect(res.status).toBe(401);
+            done();
+        },10000)
+
         it('should be able to get all users', async (done) => {
             const res = await request(app)
                 .get('/api/v1/admin')

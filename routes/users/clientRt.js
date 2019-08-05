@@ -18,7 +18,7 @@ router.post(
 )
 
 router.post(
-    '/me/account'
+    '/account'
     , auth
     , validAccount
     , AccountController.create()

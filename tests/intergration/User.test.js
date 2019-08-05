@@ -67,7 +67,7 @@ describe('/api/v1/users', () =>{
 
         it('should be able to create an account', async (done) => {
             const res = await request(app)
-                .post('/api/v1/users/me/account')
+                .post('/api/v1/users/account')
                 .set('Authorization', `${user1.token}`)
                 .send({
                     ID: 2186378393

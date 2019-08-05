@@ -57,7 +57,7 @@ router.post(
 )
 
 router.post(
-    '/staff/acc/me/credit'
+    '/staff/accounts/credit'
     , auth
     , staff
     , acc
@@ -66,7 +66,7 @@ router.post(
 )
 
 router.post(
-    '/staff/acc/me/debit'
+    '/staff/accounts/debit'
     , auth
     , staff
     , acc
@@ -104,7 +104,7 @@ router.get(
 )
 
 router.delete(
-    '/staff/accounts/acc'
+    '/staff/accounts'
     , auth
     , staff
     , acc

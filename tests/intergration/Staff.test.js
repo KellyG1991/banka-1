@@ -199,7 +199,7 @@ describe('/api/v1/admin', () =>{
     
                 it('staff should CREDIT an account and get back a 200', async(done) => {
                     const res = await request(app)
-                        .post('/api/v1/admin/staff/acc/me/credit')
+                        .post('/api/v1/admin/staff/accounts/credit')
                         .set('Authorization', `${staff.token}`)
                         .set('Account-Token', `${acc.token}`)
                         .set('Transaction',`${trans.token}` )
@@ -212,7 +212,7 @@ describe('/api/v1/admin', () =>{
     
                 it('staff should DEBIT an account and get back a 200', async(done) => {
                     const res = await request(app)
-                        .post('/api/v1/admin/staff/acc/me/debit')
+                        .post('/api/v1/admin/staff/accounts/debit')
                         .set('Authorization', `${staff.token}`)
                         .set('Account-Token', `${acc.token}`)
                         .set('Transaction', `${trans2.token}`)
@@ -249,7 +249,7 @@ describe('/api/v1/admin', () =>{
             describe('DELETE /' , () => {
                 it('staff and admin should DELETE a specific account', async (done) => {
                     const res = await request(app)
-                        .delete('/api/v1/admin/staff/accounts/acc')
+                        .delete('/api/v1/admin/staff/accounts')
                         .set('Authorization', `${user2.token}`)
                         .set('Account-Token', `${acc.token}`)
                         .send()

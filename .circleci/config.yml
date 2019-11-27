@@ -35,7 +35,7 @@ jobs:
       - run: npm test
       - run: # run coverage report
           name: code-coverage
-          command: "../coverage report --reporter=text-lcov"
+          command: "jest --collectCoverage=true"
 
       - store_artifacts: # special step to save test results as as artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/

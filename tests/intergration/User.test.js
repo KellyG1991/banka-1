@@ -1,6 +1,8 @@
 const app = require('../../app');
 const request = require('supertest');
-const {User} = require('../../model/User');
+const {
+    User
+} = require('../../model/User');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcrypt');
@@ -10,10 +12,10 @@ jest.setTimeout(10000);
 
 const user1Id = new mongoose.Types.ObjectId();
 
-describe('/api/v1/users', () =>{
+describe('/api/v1/users', () => {
     let user1;
-    beforeEach( async () => {
-        app; 
+    beforeEach(async () => {
+        app;
         await User.deleteMany();
         user1 = {
             _id: user1Id,
@@ -23,7 +25,11 @@ describe('/api/v1/users', () =>{
             email: "kim@gmail.com",
             password: "bigbutts",
             DOB: "1987-04-29",
-            token: jwt.sign({_id:user1Id}, config.get('jwtKey'),{expiresIn: "365d"})
+            token: jwt.sign({
+                _id: user1Id
+            }, config.get('jwtKey'), {
+                expiresIn: "365d"
+            })
         }
 
         const user = new User(user1);
@@ -32,9 +38,13 @@ describe('/api/v1/users', () =>{
         await user.save();
 
     });
-    
+
+    afterAll(async () => {
+        await mongoose.disconnect();
+    })
+
     describe('POST /', () => {
-        it('should get back a 200 message of successful signup', async(done) => {
+        it('should get back a 200 message of successful signup', async (done) => {
             await request(app).post('/api/v1/users/signup').send({
                 type: "Client",
                 firstName: "drew",
@@ -44,9 +54,9 @@ describe('/api/v1/users', () =>{
                 DOB: "1987-04-29"
             }).expect(200)
             done();
-        },1000)
+        }, 1000)
 
-        it('should get back 422 if user already exists', async(done) => {
+        it('should get back 422 if user already exists', async (done) => {
             const res = await request(app).post('/api/v1/users/signup').send({
                 type: "Client",
                 firstName: "drew",
@@ -62,7 +72,7 @@ describe('/api/v1/users', () =>{
             done();
         }, 1000)
 
-        it('should get back 422 if missing field', async(done) => {
+        it('should get back 422 if missing field', async (done) => {
             await request(app).post('/api/v1/users/signup').send({
                 type: "Client",
                 firstName: "drew",
@@ -72,15 +82,15 @@ describe('/api/v1/users', () =>{
             }).expect(422)
             done();
         }, 1000)
-        
-        it('should get back 200 if logged in successfully', async(done) => {
+
+        it('should get back 200 if logged in successfully', async (done) => {
             const res = await request(app).post('/api/v1/users/login').send({
                 email: user1.email,
-	            password: user1.password
+                password: user1.password
             })
             // console.log(user1.password);
             expect(res.status).toBe(200);
-            
+
             done();
         }, 1000)
 
@@ -115,9 +125,5 @@ describe('/api/v1/users', () =>{
 
             done();
         })
-    }) 
+    })
 })
-
-
-
-

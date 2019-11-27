@@ -5,9 +5,10 @@ const config = require('config');
 let connection = config.get("db");
 
 const db = mongoose.connect(connection, {
-    useCreateIndex: true,
-    useNewUrlParser:true})
-            .then(() => winston.info('\x1b[34m%s\x1b[0m',`MongoDB is connected to ${connection}........`))
+        useCreateIndex: true,
+        useNewUrlParser: true
+    })
+    .then(() => winston.info('\x1b[34m%s\x1b[0m', `MongoDB is connected to Database........`))
 
 module.exports = db;
 

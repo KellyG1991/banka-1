@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --detectOpenHandles"
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +35,7 @@
     "winston": "^2.4.4"
   },
   "jest": {
+    "bail": true,
     "testEnvironment": "node"
   },
   "devDependencies": {
